@@ -1,0 +1,27 @@
+name: 'Publish Publish Action'
+description: 'GitHub action to publish plugin'
+
+inputs:
+  client_id:
+    description: Account client id
+    required: true
+  client_key:
+    description: Account client key
+    required: true
+  realm:
+    description: Account realm
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Login
+      uses: stack-spot/stk-cli-action@v1.1
+      with:
+        client_id: ${{ inputs.client_id }}
+        client_key: ${{ inputs.client_key }}
+        realm: ${{ inputs.realm }}
+
+    - name: Publish plugin
+      shell: bash
+      run: stk publish plugin
