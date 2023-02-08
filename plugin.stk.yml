@@ -1,0 +1,23 @@
+schema-version: v1
+kind: plugin
+metadata:
+  name: some-kebab-case-name
+  description: some description
+  display-name: Some display name
+  version: 1.0.1
+  picture: images/plugin.png
+spec:
+  type: app
+  release-notes: docs/release-notes-1.md
+  about: docs/about.md
+  usage: docs/usage.md
+  implementation: docs/implementation.md
+  requirements: docs/requirements.md
+  repository: https://github.com/stack-spot/something
+  compatibility:
+    - python
+  technologies:
+    - Api
+  requires:
+    connection-interface:
+      - lambda-conn
