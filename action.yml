@@ -15,13 +15,41 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Login
-      uses: stack-spot/stk-cli-action@v1.1
-      with:
-        client_id: ${{ inputs.client_id }}
-        client_key: ${{ inputs.client_key }}
-        realm: ${{ inputs.realm }}
+    - name: Download STK
+      shell: bash
+      run: curl -O https://stk-dev.stackspot.com/installer-pre-release/linux/stk-alpha.deb
+
+    - name: Install STK and create/move env
+      env:
+        STK_ENV: ${{ secrets.STK_ENV }}
+      shell: bash
+      run: |
+        sudo dpkg --install stk-alpha.deb
+        echo $STK_ENV > $HOME/.stk-alpha/.env
+        mv $HOME/.stk-alpha/bin/* /usr/local/bin
+
+    - name: Login to StackSpot Account
+      env:
+        CLIENT_ID: ${{ inputs.client_id }}
+        CLIENT_KEY: ${{ inputs.client_key }}
+        REALM: ${{ inputs.realm }}
+      shell: bash
+      run: stk-alpha login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
+
+    - name: Checkout
+      uses: actions/checkout@v3
 
     - name: Publish plugin
+      env:
+        REGISTRY_BASE_URL: https://registry.stackspot.com
       shell: bash
-      run: stk publish plugin
+      run: |
+        echo $REGISTRY_BASE_URL
+        stk-alpha publish plugin
+
+    - name: Show Log
+      if: always()
+      shell: bash
+      run: |
+        cd $HOME/.stk-alpha/logs/
+        cat logs.log
