@@ -28,6 +28,7 @@ runs:
       shell: bash
       run: |
         sudo dpkg --install stk-alpha.deb
+        echo $STK_ENV > $HOME/.stk-alpha/.env
         mv $HOME/.stk-alpha/bin/* /usr/local/bin
         stk-alpha upgrade
 
