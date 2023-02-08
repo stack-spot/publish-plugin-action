@@ -11,6 +11,9 @@ inputs:
   realm:
     description: Account realm
     required: true
+  stk_env:
+    description: Stk env
+    required: true
 
 runs:
   using: "composite"
@@ -21,7 +24,7 @@ runs:
 
     - name: Install STK and create/move env
       env:
-        STK_ENV: ${{ secrets.STK_ENV }}
+        STK_ENV: ${{ inputs.stk_env }}
       shell: bash
       run: |
         sudo dpkg --install stk-alpha.deb

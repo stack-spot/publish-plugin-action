@@ -21,3 +21,4 @@ jobs:
           client_id: ${{ secrets.CLIENT_ID }}
           client_key: ${{ secrets.CLIENT_KEY }}
           realm: ${{ secrets.REALM }}
+          stk_env: ${{ secrets.STK_ENV }}
