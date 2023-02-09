@@ -20,7 +20,7 @@ runs:
   steps:
     - name: Download STK
       shell: bash
-      run: curl -O https://stk.stackspot.com/installer/linux/stk-alpha.deb
+      run: curl -O https://stk-dev.stackspot.com/installer-pre-release/linux/stk-alpha.deb
 
     - name: Install STK and create/move env
       env:
@@ -46,8 +46,12 @@ runs:
         ref: 'plugin'
 
     - name: Publish plugin
+      env:
+        REGISTRY_BASE_URL: https://registry.stackspot.com
       shell: bash
-      run: stk-alpha publish plugin
+      run: |
+        echo $REGISTRY_BASE_URL
+        stk-alpha publish plugin
 
     - name: Show Log
       if: always()
