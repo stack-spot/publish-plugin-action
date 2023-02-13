@@ -51,7 +51,7 @@ runs:
       shell: bash
       run: |
         echo $REGISTRY_BASE_URL
-        stk-alpha publish plugin
+        stk-alpha publish plugin --studio test
 
     - name: Show Log
       if: always()
