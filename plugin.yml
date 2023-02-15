@@ -20,4 +20,4 @@ spec:
     - Api
   requires:
     connection-interface:
-      - lambda-conn
+      - sqs-queue-conn
