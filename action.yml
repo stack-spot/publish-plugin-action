@@ -47,7 +47,9 @@ runs:
 
     - name: Publish plugin
       shell: bash
-      run: stk-alpha publish plugin
+      run: |
+        ls
+        stk-alpha publish plugin
 
     - name: Show Log
       if: always()
