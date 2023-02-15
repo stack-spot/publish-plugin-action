@@ -49,7 +49,7 @@ runs:
       shell: bash
       run: |
         ls
-        stk-alpha publish plugin
+        stk-alpha publish plugin --studio test
 
     - name: Show Log
       if: always()

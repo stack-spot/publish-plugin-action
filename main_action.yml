@@ -24,4 +24,4 @@ runs:
 
     - name: Publish plugin
       shell: bash
-      run: stk publish plugin
+      run: stk publish plugin --studio test
