@@ -31,7 +31,7 @@ runs:
       shell: bash
       run: |
         sudo dpkg --install stk-beta.deb
-        echo $STK_ENV > $HOME/.stk-alpha/.env
+        echo $STK_ENV > $HOME/.stk-beta/.env
         mv $HOME/.stk-beta/bin/* /usr/local/bin
         stk-beta upgrade
 
