@@ -14,23 +14,25 @@ inputs:
   stk_env:
     description: Stk env
     required: true
+  studio:
+    description: Studio name
+    required: true
 
 runs:
   using: "composite"
   steps:
     - name: Download STK
       shell: bash
-      run: curl -O https://stk.stackspot.com/installer/linux/stk-alpha.deb
+      run: curl -O https://stk.stackspot.com/installer/linux/stk-beta.deb
 
     - name: Install STK and create/move env
       env:
         STK_ENV: ${{ inputs.stk_env }}
       shell: bash
       run: |
-        sudo dpkg --install stk-alpha.deb
-        echo $STK_ENV > $HOME/.stk-alpha/.env
-        mv $HOME/.stk-alpha/bin/* /usr/local/bin
-        stk-alpha upgrade
+        sudo dpkg --install stk-beta.deb
+        mv $HOME/.stk-beta/bin/* /usr/local/bin
+        stk-beta upgrade
 
     - name: Login to StackSpot Account
       env:
@@ -38,7 +40,7 @@ runs:
         CLIENT_KEY: ${{ inputs.client_key }}
         REALM: ${{ inputs.realm }}
       shell: bash
-      run: stk-alpha login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
+      run: stk-beta login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
 
     - name: Checkout
       uses: actions/checkout@v3
@@ -47,13 +49,15 @@ runs:
 
     - name: Publish plugin
       shell: bash
+      env:
+        STUDIO: ${{ inputs.studio }}
       run: |
         ls
-        stk-alpha publish plugin --studio test
+        stk-beta publish plugin --studio $STUDIO
 
     - name: Show Log
       if: always()
       shell: bash
       run: |
-        cd $HOME/.stk-alpha/logs/
+        cd $HOME/.stk-beta/logs/
         cat logs.log
