@@ -8,7 +8,8 @@ GitHub action to publish plugin
 
 ### Requirements
 
-To get the account keys (`CLIENT_ID`, `CLIENT_KEY`, `REALM`).
+To learn more about generating account keys(`CLIENT_ID`, `CLIENT_KEY`, `REALM`), please refer to the documentation:
+https://docs.stackspot.com/en/home/set-up/customization/access-token
 
 ### Use Case
 
