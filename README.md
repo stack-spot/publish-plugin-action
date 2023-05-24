@@ -15,7 +15,7 @@ https://docs.stackspot.com/en/home/set-up/customization/access-token
 
 ```yaml
     steps:
-      - uses: stack-spot/publish-plugin-action@v1.0
+      - uses: stack-spot/publish-plugin-action@v1.0.0
         with:
           client_id: ${{ secrets.CLIENT_ID }}
           client_key: ${{ secrets.CLIENT_KEY }}
