@@ -15,11 +15,10 @@ jobs:
   ubuntu:
     runs-on: ubuntu-latest
     steps:
-      - name: Run publish plugin
+      - name: Run test action without publish
         uses: stack-spot/publish-plugin-action@main
         with:
           client_id: ${{ secrets.CLIENT_ID }}
           client_key: ${{ secrets.CLIENT_KEY }}
           realm: ${{ secrets.REALM }}
-          stk_env: ${{ secrets.STK_ENV }}
-          studio: test
+          studio: UNPUBLISH_ACTION_TEST
