@@ -22,7 +22,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup STK CLI (beta)
+    - name: Setup STK CLI
       shell: bash
       run: |
         curl \
@@ -36,7 +36,7 @@ runs:
           https://stk.stackspot.com/installer/linux/stk.deb
         sudo dpkg --install /tmp/stk.deb || echo installed
         rm --force /tmp/stk.deb
-    - name: Show STK CLI (beta) version
+    - name: Show STK CLI version
       shell: bash
       run: $HOME/.stk/bin/stk --version
     - name: Login StackSpot
