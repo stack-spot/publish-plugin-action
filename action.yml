@@ -14,6 +14,10 @@ inputs:
   studio:
     description: Studio name
     required: true
+  plugin_path:
+    description: Plugin Path
+    required: false
+    default: '.'    
 
 runs:
   using: "composite"
@@ -42,7 +46,10 @@ runs:
       shell: bash
       env:
         STUDIO: ${{ inputs.studio }}
-      run: stk publish plugin --studio $STUDIO
+        PLUGIN_PATH: ${{ inputs.plugin_path }}
+      run: |
+        cd $PLUGIN_PATH
+        stk publish plugin --studio $STUDIO
 
     - name: Show Log
       if: always()
