@@ -63,7 +63,7 @@ runs:
         PLUGIN_PATH: ${{ inputs.plugin_path }}
       run: |
         cd $PLUGIN_PATH
-        stk publish plugin --studio $STUDIO
+        $HOME/.stk/bin/stk publish plugin --studio $STUDIO
 
     - name: Show Error Log
       shell: bash    
