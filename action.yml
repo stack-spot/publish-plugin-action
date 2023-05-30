@@ -40,11 +40,12 @@ runs:
       shell: bash
       run: |
         sudo dpkg --install /tmp/stk.deb || echo installed
+        mv $HOME/.stk/bin/* /usr/local/bin
         rm --force /tmp/stk.deb
 
     - name: Show STK CLI version
       shell: bash
-      run: $HOME/.stk/bin/stk --version
+      run: stk --version
 
     - name: Login StackSpot
       shell: bash
@@ -53,7 +54,7 @@ runs:
         CLIENT_KEY: ${{ inputs.client_key }}
         REALM: ${{ inputs.realm }}
       run: |
-        $HOME/.stk/bin/stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
+        stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
 
     - name: Publish plugin
       if: ${{ !contains(inputs.studio, 'UNPUBLISH_ACTION_TEST') }}
@@ -63,7 +64,7 @@ runs:
         PLUGIN_PATH: ${{ inputs.plugin_path }}
       run: |
         cd $PLUGIN_PATH
-        $HOME/.stk/bin/stk publish plugin --studio $STUDIO
+        stk publish plugin --studio $STUDIO
 
     - name: Show Error Log
       shell: bash    
