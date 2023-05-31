@@ -21,6 +21,7 @@ https://docs.stackspot.com/en/home/set-up/customization/access-token
           client_key: ${{ secrets.CLIENT_KEY }}
           realm: ${{ secrets.REALM }}
           studio: studio_name
+          plugin_path: plugin_path #optional
 ```
 
 ## License
