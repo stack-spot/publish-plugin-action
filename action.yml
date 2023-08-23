@@ -62,8 +62,8 @@ runs:
         STUDIO: ${{ inputs.studio }}
         PLUGIN_PATH: ${{ inputs.plugin_path }}
       run: |
+        ls
         cd $PLUGIN_PATH
-
         if [ -f "plugin.yaml" ]; then
             $HOME/.stk/bin/stk publish plugin --studio $STUDIO
         elif [ -f "action.yaml" ]; then
