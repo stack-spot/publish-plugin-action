@@ -39,7 +39,7 @@ runs:
     - name: Install STK CLI
       shell: bash
       run: |
-        sudo dpkg --install /tmp/stk.deb || echo installed
+        dpkg --install /tmp/stk.deb || echo installed
         export PATH=$HOME/.stk/bin
 
     - name: Show STK CLI version
