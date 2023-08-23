@@ -44,7 +44,7 @@ runs:
 
     - name: Show STK CLI version
       shell: bash
-      run: stk --version
+      run: sudo stk --version
 
     - name: Login StackSpot
       shell: bash
@@ -53,7 +53,7 @@ runs:
         CLIENT_KEY: ${{ inputs.client_key }}
         REALM: ${{ inputs.realm }}
       run: |
-        stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
+        sudo stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
 
     - name: Publish
       if: ${{ !contains(inputs.studio, 'UNPUBLISH_ACTION_TEST') }}
@@ -65,9 +65,9 @@ runs:
         cd $PLUGIN_PATH
 
         if [ -f "plugin.yaml" ]; then
-            stk publish plugin --studio $STUDIO
+            sudo stk publish plugin --studio $STUDIO
         elif [ -f "action.yaml" ]; then
-            stk publish action --studio $STUDIO
+            sudo stk publish action --studio $STUDIO
         fi
 
 
