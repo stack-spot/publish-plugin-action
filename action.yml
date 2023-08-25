@@ -40,7 +40,8 @@ runs:
       shell: bash
       run: |
         sudo dpkg --install /tmp/stk.deb || echo installed
-        export PATH=$HOME/.stk/bin
+        sudo mv $HOME/.stk/bin/* /usr/local/bin
+        rm --force /tmp/stk.deb
 
     - name: Show STK CLI version
       shell: bash
@@ -55,7 +56,7 @@ runs:
       run: |
         stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
 
-    - name: Publish plugin
+    - name: Publish
       if: ${{ !contains(inputs.studio, 'UNPUBLISH_ACTION_TEST') }}
       shell: bash
       env:
@@ -63,7 +64,11 @@ runs:
         PLUGIN_PATH: ${{ inputs.plugin_path }}
       run: |
         cd $PLUGIN_PATH
-        stk publish plugin --studio $STUDIO
+        if [ -f "plugin.yaml" ]; then
+            stk publish plugin --studio $STUDIO
+        elif [ -f "action.yaml" ]; then
+            stk publish action --studio $STUDIO
+        fi
 
     - name: Show Error Log
       shell: bash    
