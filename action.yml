@@ -21,6 +21,8 @@ inputs:
 
 runs:
   using: "composite"
+  env:
+    STK: $HOME/.stk/bin/stk
   steps:
     - name: Download STK CLI
       shell: bash
@@ -40,12 +42,12 @@ runs:
       shell: bash
       run: |
         sudo dpkg --install /tmp/stk.deb || echo installed
-        sudo mv -f $HOME/.stk/bin/* /usr/local/bin
+        sudo mv $HOME/.stk/bin/* /usr/local/bin
         rm --force /tmp/stk.deb        
 
     - name: Show STK CLI version
       shell: bash
-      run: stk --version
+      run: $STK --version
 
     - name: Login StackSpot
       shell: bash
@@ -54,7 +56,7 @@ runs:
         CLIENT_KEY: ${{ inputs.client_key }}
         REALM: ${{ inputs.realm }}
       run: |
-        stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
+        $STK login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
 
     - name: Publish
       if: ${{ !contains(inputs.studio, 'UNPUBLISH_ACTION_TEST') }}
@@ -65,9 +67,9 @@ runs:
       run: |
         cd $PLUGIN_PATH
         if [ -f "plugin.yaml" ]; then
-            stk publish plugin --studio $STUDIO
+            $STK publish plugin --studio $STUDIO
         elif [ -f "action.yaml" ]; then
-            stk publish action --studio $STUDIO
+            $STK publish action --studio $STUDIO
         fi
 
 
