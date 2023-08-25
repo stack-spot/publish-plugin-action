@@ -17,7 +17,7 @@ inputs:
   plugin_path:
     description: Plugin Path
     required: false
-    default: '.'         
+    default: '.'    
 
 runs:
   using: "composite"
@@ -41,12 +41,11 @@ runs:
       run: |
         sudo dpkg --install /tmp/stk.deb || echo installed
         sudo mv $HOME/.stk/bin/* /usr/local/bin
-        rm --force /tmp/stk.deb        
-        export PATH=$HOME/.stk/bin
+        rm --force /tmp/stk.deb
 
     - name: Show STK CLI version
       shell: bash
-      run: $HOME/.stk/bin/stk --version
+      run: stk --version
 
     - name: Login StackSpot
       shell: bash
@@ -55,9 +54,9 @@ runs:
         CLIENT_KEY: ${{ inputs.client_key }}
         REALM: ${{ inputs.realm }}
       run: |
-        $HOME/.stk/bin/stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
+        stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
 
-    - name: Publish
+    - name: Publish plugin
       if: ${{ !contains(inputs.studio, 'UNPUBLISH_ACTION_TEST') }}
       shell: bash
       env:
@@ -65,12 +64,7 @@ runs:
         PLUGIN_PATH: ${{ inputs.plugin_path }}
       run: |
         cd $PLUGIN_PATH
-        if [ -f "plugin.yaml" ]; then
-            $HOME/.stk/bin/stk publish plugin --studio $STUDIO
-        elif [ -f "action.yaml" ]; then
-            $HOME/.stk/bin/stk publish action --studio $STUDIO
-        fi
-
+        stk publish plugin --studio $STUDIO
 
     - name: Show Error Log
       shell: bash    
