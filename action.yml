@@ -64,7 +64,11 @@ runs:
         PLUGIN_PATH: ${{ inputs.plugin_path }}
       run: |
         cd $PLUGIN_PATH
-        stk publish plugin --studio $STUDIO
+        if [ -f "plugin.yaml" ]; then
+            stk publish plugin --studio $STUDIO
+        elif [ -f "action.yaml" ]; then
+            stk publish action --studio $STUDIO
+        fi
 
     - name: Show Error Log
       shell: bash    
