@@ -56,7 +56,7 @@ runs:
       run: |
         stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
 
-    - name: Publish plugin
+    - name: Publish
       if: ${{ !contains(inputs.studio, 'UNPUBLISH_ACTION_TEST') }}
       shell: bash
       env:
