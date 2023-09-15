@@ -35,19 +35,16 @@ runs:
           --tlsv1.3 \
           https://stk.stackspot.com/installer/linux/stk.deb
         
-
     - name: Install STK CLI
       shell: bash
       run: |
-        sudo dpkg --install /tmp/stk.deb || echo "Falha na instalação: $?"
-        dpkg -l | grep stk
-        ls -la $HOME/.stk/bin
+        sudo dpkg --install /tmp/stk.deb || echo "Installation failed with exit code: $?"
         export PATH=$PATH:$HOME/.stk/bin
 
-    - name: Verify bin in path
+    - name: Verify if cli was installed
       shell: bash
       run: |
-        ls -la $HOME/.stk/bin
+        dpkg -l | grep stk
 
     - name: Show STK CLI version
       shell: bash
