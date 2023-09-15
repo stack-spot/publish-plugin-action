@@ -40,8 +40,8 @@ runs:
       shell: bash
       run: |
         sudo dpkg --install /tmp/stk.deb || echo installed
-        export PATH=$PATH:$HOME/.stk/bin
-        source ~/.bashrc
+        export PATH=$PATH:$HOME/.stk/bin && source ~/.bashrc
+        
 
     - name: Show STK CLI version
       shell: bash
