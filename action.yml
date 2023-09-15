@@ -40,12 +40,12 @@ runs:
       shell: bash
       run: |
         sudo dpkg --install /tmp/stk.deb || echo installed
-        export PATH=$HOME/.stk/bin
+        export PATH=$PATH:$HOME/.stk/bin
 
     - name: Verify bin in path
       shell: bash
       run: |
-        ls -la ~/.stk/bin
+        ls -la $HOME/.stk/bin
 
     - name: Show STK CLI version
       shell: bash
