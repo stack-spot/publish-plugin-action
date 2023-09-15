@@ -40,6 +40,7 @@ runs:
       shell: bash
       run: |
         sudo dpkg --install /tmp/stk.deb || echo installed
+        ls -la $HOME/.stk/bin
         export PATH=$PATH:$HOME/.stk/bin
 
     - name: Verify bin in path
