@@ -67,10 +67,12 @@ runs:
         PLUGIN_PATH: ${{ inputs.plugin_path }}
       run: |
         cd $PLUGIN_PATH
-        if [ -f "plugin.yaml" ]; then
+        if [ -f "plugin.yaml" ] || [ -f "plugin.yml" ]; then
             $HOME/.stk/bin/stk publish plugin --studio $STUDIO
-        elif [ -f "action.yaml" ]; then
+        elif [ -f "action.yaml" ] || [ -f "action.yml" ]; then
             $HOME/.stk/bin/stk publish action --studio $STUDIO
+        else
+          echo "No plugin.yaml or action.yaml found"
         fi
 
     - name: Show Error Log
