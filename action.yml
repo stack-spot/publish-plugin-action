@@ -39,7 +39,8 @@ runs:
     - name: Install STK CLI
       shell: bash
       run: |
-        sudo dpkg --install /tmp/stk.deb || echo installed
+        sudo dpkg --install /tmp/stk.deb || echo "Falha na instalação: $?"
+        dpkg -l | grep stk
         ls -la $HOME/.stk/bin
         export PATH=$PATH:$HOME/.stk/bin
 
@@ -50,7 +51,7 @@ runs:
 
     - name: Show STK CLI version
       shell: bash
-      run: stk --version
+      run: $HOME/.stk/bin/stk --version
 
     - name: Login StackSpot
       shell: bash
@@ -59,7 +60,7 @@ runs:
         CLIENT_KEY: ${{ inputs.client_key }}
         REALM: ${{ inputs.realm }}
       run: |
-        stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
+        $HOME/.stk/bin/stk login --client-id $CLIENT_ID --client-key $CLIENT_KEY --realm $REALM
 
     - name: Publish
       if: ${{ !contains(inputs.studio, 'UNPUBLISH_ACTION_TEST') }}
@@ -70,9 +71,9 @@ runs:
       run: |
         cd $PLUGIN_PATH
         if [ -f "plugin.yaml" ]; then
-            stk publish plugin --studio $STUDIO
+            $HOME/.stk/bin/stk publish plugin --studio $STUDIO
         elif [ -f "action.yaml" ]; then
-            stk publish action --studio $STUDIO
+            $HOME/.stk/bin/stk publish action --studio $STUDIO
         fi
 
     - name: Show Error Log
