@@ -79,6 +79,5 @@ runs:
       shell: bash    
       if: ${{ failure() }}
       run: |
-        echo "Error: ${{ job.status.result }}"
         cat $HOME/.stk/logs/*
         exit 1
