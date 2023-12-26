@@ -66,8 +66,6 @@ runs:
         STUDIO: ${{ inputs.studio }}
         PLUGIN_PATH: ${{ inputs.plugin_path }}
       run: |
-        ls -la
-        pwd
         cd $PLUGIN_PATH
         if [ -f "plugin.yaml" ] || [ -f "plugin.yml" ]; then
             $HOME/.stk/bin/stk publish plugin --studio $STUDIO
@@ -75,7 +73,6 @@ runs:
             $HOME/.stk/bin/stk publish action --studio $STUDIO
         else
           echo "No plugin.yaml or action.yaml found"
-          exit 1
         fi
 
     - name: Show Error Log
@@ -83,4 +80,4 @@ runs:
       if: failure()
       run: |
         cat $HOME/.stk/logs/*
-        exit 1;
+        exit 1
