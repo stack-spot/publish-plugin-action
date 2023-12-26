@@ -77,7 +77,8 @@ runs:
 
     - name: Show Error Log
       shell: bash    
-      if: failure()
+      if: ${{ failure() }}
       run: |
+        echo "Error: ${{ job.status.result }}"
         cat $HOME/.stk/logs/*
         exit 1
