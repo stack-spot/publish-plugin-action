@@ -21,7 +21,6 @@ inputs:
 
 runs:
   using: "composite"
-  if: ${{ failure() }}
   steps:
     - name: Download STK CLI
       shell: bash
@@ -78,5 +77,7 @@ runs:
 
     - name: Show Error Log
       shell: bash    
+      if: failure()
       run: |
         cat $HOME/.stk/logs/*
+        exit 1
