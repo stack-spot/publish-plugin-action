@@ -80,3 +80,4 @@ runs:
       if: failure()
       run: |
         cat $HOME/.stk/logs/*
+        exit 1;
