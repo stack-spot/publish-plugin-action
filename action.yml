@@ -73,6 +73,7 @@ runs:
             $HOME/.stk/bin/stk publish action --studio $STUDIO
         else
           echo "No plugin.yaml or action.yaml found"
+          exit 1
         fi
 
     - name: Show Error Log
